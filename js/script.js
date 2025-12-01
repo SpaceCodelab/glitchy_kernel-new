@@ -178,9 +178,9 @@ syntax on           " Enable syntax highlighting</code></pre>
                 <div class="group cursor-pointer" onclick="openModal('${update.id}')">
                     <div class="mb-2">
                          ${tagHtml}
-                         <span class="text-xs text-gray-500 ${update.tag ? 'ml-2' : ''}">${timeLabel}</span>
+                         <span class="text-xs text-gray-500 dark:text-gray-400 ${update.tag ? 'ml-2' : ''}">${timeLabel}</span>
                     </div>
-                    <h4 class="text-lg font-bold leading-snug group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
+                    <h4 class="text-xl font-bold leading-snug group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
                         ${update.title}
                     </h4>
                     <p class="text-sm text-gray-500 dark:text-gray-400 mt-2 line-clamp-2">

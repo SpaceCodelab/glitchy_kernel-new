@@ -41,7 +41,7 @@
                     coffee</a>
 
                 <!-- Theme Toggle Button -->
-                <button id="theme-toggle" onclick="toggleTheme()"
+                <button id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"
                     class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                     <i id="theme-icon" class="ph-fill ph-moon text-xl"></i>
                 </button>
@@ -90,9 +90,10 @@
                     <div
                         class="swiss-border-b py-6 flex flex-col md:flex-row md:items-center justify-between group cursor-pointer hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
                         <div class="max-w-xl">
-                            <h3 class="text-xl font-bold mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300">
+                            <h3
+                                class="text-2xl font-bold mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300">
                                 Local LLMs on Mac: Privacy first AI</h3>
-                            <div class="flex items-center gap-3 text-sm text-gray-500">
+                            <div class="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
                                 <span
                                     class="bg-brand-cyan text-brand-black px-1.5 py-0.5 text-[10px] font-bold uppercase">Machine
                                     Learning</span>
@@ -109,9 +110,10 @@
                     <div
                         class="swiss-border-b py-6 flex flex-col md:flex-row md:items-center justify-between group cursor-pointer hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
                         <div class="max-w-xl">
-                            <h3 class="text-xl font-bold mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300">
+                            <h3
+                                class="text-2xl font-bold mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300">
                                 How we reduced JS bundle sizes by 33%</h3>
-                            <div class="flex items-center gap-3 text-sm text-gray-500">
+                            <div class="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
                                 <span
                                     class="bg-brand-salmon text-brand-black px-1.5 py-0.5 text-[10px] font-bold uppercase">Front
                                     End</span>
@@ -128,9 +130,10 @@
                     <div
                         class="swiss-border-b py-6 flex flex-col md:flex-row md:items-center justify-between group cursor-pointer hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
                         <div class="max-w-xl">
-                            <h3 class="text-xl font-bold mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300">
+                            <h3
+                                class="text-2xl font-bold mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300">
                                 Investigating the impact of HTTP3 on network latency</h3>
-                            <div class="flex items-center gap-3 text-sm text-gray-500">
+                            <div class="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
                                 <span
                                     class="bg-gray-200 dark:bg-gray-700 text-black dark:text-white px-1.5 py-0.5 text-[10px] font-bold uppercase">Infrastructure</span>
                                 <span>Aug 11, 2025</span>
@@ -160,10 +163,11 @@
 
                 <!-- Footer Links in Sidebar -->
                 <div class="mt-16 pt-8 border-t border-black/10 dark:border-white/10">
-                    <button onclick="openModal('about-modal')" class="text-sm font-bold hover:underline mb-4 block">
+                    <button onclick="openModal('about-modal')" class="text-base font-bold hover:underline mb-4 block">
                         System Info / About
                     </button>
-                    <div class="flex flex-wrap gap-4 text-xs text-gray-500 uppercase tracking-wider font-medium">
+                    <div
+                        class="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider font-medium">
                         <a href="https://x.com/CosmicNerdd" target="_blank" rel="noopener noreferrer"
                             class="hover:text-black dark:hover:text-white">Twitter</a>
                         <a href="https://github.com/SpaceCodelab" target="_blank" rel="noopener noreferrer"
