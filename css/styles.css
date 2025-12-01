@@ -1,0 +1,96 @@
+/* Smooth transition for theme toggle */
+body {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Custom Scrollbar to match minimalism */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #555;
+}
+
+/* Utility for the specific grid lines seen in video */
+.swiss-border-b {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dark .swiss-border-b {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.swiss-border-t {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dark .swiss-border-t {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Article Content Styles */
+.prose pre {
+    background-color: #f3f4f6;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dark .prose pre {
+    background-color: #1a1a1a;
+    /* brand-gray */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e5e7eb;
+}
+
+.prose code {
+    font-family: 'JetBrains Mono', monospace;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+}
+
+.dark .prose code {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.prose pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    color: inherit;
+}
+
+.prose img {
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.prose figcaption {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: -1.5rem;
+    margin-bottom: 2rem;
+}
+
+.dark .prose figcaption {
+    color: #9ca3af;
+}

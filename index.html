@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlitchyKernel</title>
+
+    <!--     Google Fonts: JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Custom JS (Config + Logic) -->
+    <script src="js/script.js"></script>
+</head>
+
+<body class="bg-brand-white text-brand-black dark:bg-brand-black dark:text-brand-white font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav
+        class="fixed top-0 w-full z-50 bg-brand-white/90 dark:bg-brand-black/90 backdrop-blur-md border-b border-black/5 dark:border-white/10 transition-colors duration-300">
+        <div class="max-w-[90%] mx-auto px-6 h-20 flex justify-between items-center">
+            <!-- Logo Area -->
+            <div class="flex items-center gap-2">
+                <img src="assets/logo.png" alt="GlitchyKernel Logo" class="w-42 h-32 mt-2 rounded-lg">
+            </div>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-6">
+                <a href="#" class="hidden md:block font-medium hover:text-gray-500 transition-colors text-sm">Buy me a
+                    coffee</a>
+
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" onclick="toggleTheme()"
+                    class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <i id="theme-icon" class="ph-fill ph-moon text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <main class="max-w-[90%] mx-auto px-6 pt-32 pb-20 grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+        <!-- Left Column: Introduction & Vlogs (8 cols) -->
+        <div class="lg:col-span-8">
+
+            <!-- Hero Text -->
+            <header class="mb-16">
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-[0.95] mb-8">
+                    patching glitches,<br>
+                    powering kernels.
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
+                    Highlights from the engineering trenches. Exploring legacy hardware, modern AI, and the code that
+                    connects them.
+                </p>
+            </header>
+
+            <!-- Featured Section (Grid of Cards) -->
+            <section class="mb-16">
+                <div class="flex items-baseline justify-between mb-6 pb-2 border-b border-black dark:border-white">
+                    <h2 class="text-sm font-bold uppercase tracking-widest">Featured Stories</h2>
+                </div>
+
+                <div id="posts-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Dynamic Content -->
+                </div>
+            </section>
+
+            <!-- Latest List Section -->
+            <section>
+                <div class="flex items-baseline justify-between mb-4">
+                    <h2 class="text-sm font-bold uppercase tracking-widest">Latest Logs</h2>
+                    <a href="#" class="text-sm hover:underline">View all</a>
+                </div>
+
+                <div class="border-t border-black dark:border-white">
+                    <!-- List Item 1 -->
+                    <div
+                        class="swiss-border-b py-6 flex flex-col md:flex-row md:items-center justify-between group cursor-pointer hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+                        <div class="max-w-xl">
+                            <h3 class="text-xl font-bold mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300">
+                                Local LLMs on Mac: Privacy first AI</h3>
+                            <div class="flex items-center gap-3 text-sm text-gray-500">
+                                <span
+                                    class="bg-brand-cyan text-brand-black px-1.5 py-0.5 text-[10px] font-bold uppercase">Machine
+                                    Learning</span>
+                                <span>Oct 22, 2025</span>
+                            </div>
+                        </div>
+                        <div
+                            class="mt-4 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0">
+                            <span class="text-2xl">&rarr;</span>
+                        </div>
+                    </div>
+
+                    <!-- List Item 2 -->
+                    <div
+                        class="swiss-border-b py-6 flex flex-col md:flex-row md:items-center justify-between group cursor-pointer hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+                        <div class="max-w-xl">
+                            <h3 class="text-xl font-bold mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300">
+                                How we reduced JS bundle sizes by 33%</h3>
+                            <div class="flex items-center gap-3 text-sm text-gray-500">
+                                <span
+                                    class="bg-brand-salmon text-brand-black px-1.5 py-0.5 text-[10px] font-bold uppercase">Front
+                                    End</span>
+                                <span>Sep 16, 2025</span>
+                            </div>
+                        </div>
+                        <div
+                            class="mt-4 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0">
+                            <span class="text-2xl">&rarr;</span>
+                        </div>
+                    </div>
+
+                    <!-- List Item 3 -->
+                    <div
+                        class="swiss-border-b py-6 flex flex-col md:flex-row md:items-center justify-between group cursor-pointer hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
+                        <div class="max-w-xl">
+                            <h3 class="text-xl font-bold mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300">
+                                Investigating the impact of HTTP3 on network latency</h3>
+                            <div class="flex items-center gap-3 text-sm text-gray-500">
+                                <span
+                                    class="bg-gray-200 dark:bg-gray-700 text-black dark:text-white px-1.5 py-0.5 text-[10px] font-bold uppercase">Infrastructure</span>
+                                <span>Aug 11, 2025</span>
+                            </div>
+                        </div>
+                        <div
+                            class="mt-4 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0">
+                            <span class="text-2xl">&rarr;</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Right Column: Tech Updates Sidebar (4 cols) -->
+        <aside class="lg:col-span-4 pl-0 lg:pl-12 border-l-0 lg:border-l border-transparent">
+            <div class="sticky top-28">
+
+                <h2
+                    class="text-sm font-bold uppercase tracking-widest mb-6 pb-2 border-b border-black dark:border-white">
+                    System Updates
+                </h2>
+
+                <div id="updates-list" class="space-y-8">
+                    <!-- Dynamic Content -->
+                </div>
+
+                <!-- Footer Links in Sidebar -->
+                <div class="mt-16 pt-8 border-t border-black/10 dark:border-white/10">
+                    <button onclick="openModal('about-modal')" class="text-sm font-bold hover:underline mb-4 block">
+                        System Info / About
+                    </button>
+                    <div class="flex flex-wrap gap-4 text-xs text-gray-500 uppercase tracking-wider font-medium">
+                        <a href="https://x.com/CosmicNerdd" target="_blank" rel="noopener noreferrer"
+                            class="hover:text-black dark:hover:text-white">Twitter</a>
+                        <a href="https://github.com/SpaceCodelab" target="_blank" rel="noopener noreferrer"
+                            class="hover:text-black dark:hover:text-white">Github</a>
+                        <a href="https://www.linkedin.com/in/ramanjeetsingh31/" target="_blank"
+                            rel="noopener noreferrer" class="hover:text-black dark:hover:text-white">Linkedin</a>
+                    </div>
+                    <p class="mt-4 text-[10px] text-gray-400">© 2025 GlitchyKernel Logs.</p>
+                </div>
+            </div>
+        </aside>
+
+    </main>
+
+
+    <!-- MODAL OVERLAY -->
+    <div id="modal-overlay"
+        class="fixed inset-0 bg-brand-white/80 dark:bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4"
+        onclick="closeModal(event)">
+
+        <!-- CONTENT: ABOUT -->
+        <div id="about-modal"
+            class="modal-content hidden max-w-2xl w-full bg-brand-white dark:bg-brand-gray shadow-2xl p-8 md:p-12 relative border border-black/5 dark:border-white/10"
+            onclick="event.stopPropagation()">
+            <button onclick="closeAllModals()" class="absolute top-6 right-6 text-2xl hover:text-gray-500">
+                <i class="ph ph-x"></i>
+            </button>
+
+            <div>
+                <img src="assets/logo.png" alt="GlitchyKernel Logo" class="w-62 h-42 mt-2 -mb-10 rounded-lg shadow-md">
+            </div>
+            <h2 class="text-4xl font-bold mb-8">About GlitchyKernel</h2>
+            <div class="space-y-6">
+                <div class="text-lg">
+                    <p class="text-gray-600 dark:text-gray-300">
+                        GlitchyKernel is my little tech playground where I dive into anything and everything across
+                        computer science. Low-level systems, compilers, networks, OS internals, hardware quirks,
+                        algorithms, security oddities, performance tuning, distributed systems—you name it, I probably
+                        have a post (or a rant) about it.
+                        This blog is where I break things down, experiment, learn out loud, and occasionally stumble
+                        into interesting glitches along the way. If you’re into understanding how computers really
+                        work—from the bits on the metal to the logic in the cloud—you’ll feel right at home.
+                        Welcome to the kernel panic.
+                    </p>
+                    <p class="mt-4 text-gray-600 dark:text-gray-300">
+                        <strong>Contact:</strong> <a href="mailto:glitchykernel@gmail.com"
+                            class="underline hover:text-black dark:hover:text-white transition-colors">glitchykernel@gmail.com</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT: DYNAMIC UPDATE MODAL -->
+        <div id="dynamic-update-modal"
+            class="modal-content hidden max-w-xl w-full bg-brand-white dark:bg-brand-gray shadow-2xl p-8 relative border border-black/5 dark:border-white/10"
+            onclick="event.stopPropagation()">
+            <button onclick="closeAllModals()" class="absolute top-6 right-6 text-2xl hover:text-gray-500"><i
+                    class="ph ph-x"></i></button>
+
+            <div id="modal-tag-container" class="mb-4">
+                <!-- Dynamic Tag -->
+            </div>
+
+            <div id="modal-image-container" class="mb-6 hidden">
+                <img id="modal-image" src="" alt="Update Image"
+                    class="w-full h-auto rounded-lg shadow-sm object-cover max-h-64">
+            </div>
+
+            <h3 id="modal-title" class="text-2xl font-bold mb-4"></h3>
+            <p id="modal-content" class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+                <!-- Dynamic Content -->
+            </p>
+            <button onclick="closeAllModals()"
+                class="w-full py-3 bg-black dark:bg-white text-white dark:text-black font-bold text-sm uppercase tracking-widest hover:opacity-90 transition-opacity">Close
+                Log</button>
+        </div>
+
+
+
+    </div>
+</body>
+
+</html>
