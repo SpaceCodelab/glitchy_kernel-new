@@ -1,0 +1,21 @@
+[
+    {
+        "id": "update-aws-reinvent-2025",
+        "title": "AWS unveils Trainium3 UltraServers & AI Factories.",
+        "content": "Delivering up to 4.4× more compute performance than previous generation...",
+        "fullContent": "Amazon Web Services (AWS) unveiled a suite of new AI & infrastructure products at AWS re:Invent 2025 — including “Trainium3 UltraServers” delivering up to 4.4× more compute performance than previous generation, plus “AI Factories” for enterprises to host dedicated AI infrastructure.",
+        "date": "2025-12-03T09:00:00",
+        "tag": "Cloud",
+        "tagColor": "bg-brand-salmon text-brand-black",
+        "image": "assets/updates/AWS servers.png"
+    },
+    {
+        "id": "update-semiconductor-ai",
+        "title": "AI-driven flows turbo-charge chip design.",
+        "content": "Major players like Cadence and Samsung are embracing AI-based workflows...",
+        "fullContent": "Global semiconductor design and manufacturing is being turbo-charged by AI-driven chip design flows, with major players like Cadence Design Systems, Samsung Semiconductor (India R&D arm), and Tessolve embracing AI-based workflows — marking a shift in how complex chips are conceived, verified and built.",
+        "date": "2025-12-02T14:30:00",
+        "tag": "Hardware",
+        "tagColor": "bg-brand-cyan text-brand-black"
+    }
+]

@@ -25,78 +25,42 @@ tailwind.config = {
 // --- Application Logic ---
 document.addEventListener('DOMContentLoaded', () => {
     // --- Data ---
-    const blogPosts = [
-        {
-            id: "post-1",
-            title: "Driving AI adoption: A conversation with our CTO",
-            date: "2025-08-19",
-            category: "Culture",
-            tag: "Engineering",
-            style: "default",
-            link: "article.html?id=post-1",
-            content: `
-                <p>Artificial Intelligence is no longer just a buzzword; it's a fundamental shift in how we approach engineering problems. In this candid conversation, we explore the practical challenges and immense opportunities of integrating AI into legacy workflows.</p>
-                <p>We discuss the importance of data governance, the ethical considerations of automated decision-making, and how to foster a culture of continuous learning within engineering teams.</p>
-                <h3>Key Takeaways</h3>
-                <ul>
-                    <li>Start small: Implement AI in non-critical paths first.</li>
-                    <li>Data is king: Clean, structured data is more valuable than complex models.</li>
-                    <li>Human-in-the-loop: AI should augment human intelligence, not replace it.</li>
-                </ul>
-            `
-        },
-        {
-            id: "post-2",
-            title: "Restoring a 1994 ThinkPad to its former glory",
-            date: "2025-11-17",
-            category: null,
-            tag: "Hardware",
-            style: "image",
-            image: "assets/how-gpu-works.png",
-            link: "article.html?id=post-2",
-            content: `
-                <p>There's something special about the clicky keyboards and boxy designs of 90s laptops. This week, I picked up a non-functional IBM ThinkPad 755C and attempted to bring it back to life.</p>
+    // --- Data ---
+    let updates = [];
 
-                <br>
+    // Fetch posts and updates
+    async function loadData() {
+        try {
+            const [postsResponse, updatesResponse] = await Promise.all([
+                fetch('posts.json'),
+                fetch('updates.json')
+            ]);
 
-                <pre><code>" Basic Settings
-set number          " Show line numbers
-set relativenumber  " Show relative line numbers
-set tabstop=4       " Tab width
-set shiftwidth=4    " Indent width
-set expandtab       " Use spaces instead of tabs
-syntax on           " Enable syntax highlighting</code></pre>
+            if (!postsResponse.ok) throw new Error('Failed to load posts');
+            if (!updatesResponse.ok) throw new Error('Failed to load updates');
 
-                <h2>The Hunt for Parts</h2>
-                <p>The journey involved sourcing a replacement battery, fixing a corroded motherboard trace, and finding a working floppy drive to install Windows 95. It was a nostalgic trip down memory lane, reminding me of a time when hardware felt more repairable and tangible.</p>
-                <h3>Battery Woes</h3>
-                <p>Finding a working NiMH battery pack was impossible, so I had to rebuild one using modern cells.</p>
-                <h2>Installation Day</h2>
-                <p>The result? A fully functional retro gaming machine that runs DOOM perfectly.</p>
-            `
+            blogPosts = await postsResponse.json();
+            updates = await updatesResponse.json();
+
+            // Re-render after loading
+            renderFeatured();
+            renderUpdates();
+            renderArticlePage();
+
+            // Check for deep links after data is loaded
+            const path = window.location.pathname.replace(/^\/|\/$/g, '');
+            if (path && path !== 'index.html') {
+                const post = blogPosts.find(p => slugify(p.title) === path);
+                if (post) {
+                    openPostModal(post.id);
+                }
+            }
+        } catch (error) {
+            console.error('Error loading data:', error);
         }
-    ];
+    }
 
-    const updates = [
-        {
-            id: "update-1",
-            title: "Silicon photonics breakthrough announced.",
-            content: "Data transfer speeds x100. Scientists have successfully demonstrated a stable silicon photonics chip...",
-            fullContent: "Scientists have successfully demonstrated a stable silicon photonics chip capable of transmitting data at speeds 100x faster than current copper interconnects within data centers. This could revolutionize how we architect server farms in the coming decade.",
-            date: "2025-11-29T10:42:00", // Today
-            tag: "New",
-            tagColor: "bg-brand-black dark:bg-brand-white text-brand-white dark:text-brand-black"
-        },
-        {
-            id: "update-2",
-            title: "Open source graphics drivers update (v5.4.1).",
-            content: "Fixes major rendering pipeline bug causing artifacts in high-load scenarios...",
-            fullContent: "The open-source community has pushed a critical fix for the rendering pipeline that was causing artifacts in high-load scenarios. This specifically targets the Vulkan implementation on older architecture cards.",
-            date: "2025-11-28T09:00:00", // Yesterday
-            tag: "Yesterday",
-            tagColor: "bg-gray-200 dark:bg-gray-800 text-black dark:text-white"
-        }
-    ];
+    loadData();
 
     // --- Helper Functions ---
     function getRelativeTime(dateString) {
@@ -120,9 +84,19 @@ syntax on           " Enable syntax highlighting</code></pre>
     // --- Rendering Logic ---
     function renderFeatured() {
         const grid = document.getElementById('posts-grid');
-        if (!grid) return;
+        const list = document.getElementById('featured-logs-list');
 
-        grid.innerHTML = blogPosts.map(post => {
+        if (!grid || !list) return;
+
+        // Sort posts by date (newest first)
+        const sortedPosts = [...blogPosts].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        // Split posts: Top 2 for Grid, Rest for List
+        const latestStories = sortedPosts.slice(0, 2);
+        const featuredLogs = sortedPosts.slice(2);
+
+        // Render Latest Stories (Grid)
+        grid.innerHTML = latestStories.map(post => {
             if (post.style === 'image') {
                 return `
                     <article class="group relative bg-gray-100 dark:bg-brand-gray overflow-hidden hover:translate-y-[-4px] transition-transform duration-300 cursor-pointer">
@@ -144,7 +118,7 @@ syntax on           " Enable syntax highlighting</code></pre>
 
             } else { // Default / Dark Text Style
                 return `
-                     <article class="group relative bg-gray-100 dark:bg-brand-gray p-8 min-h-[280px] flex flex-col justify-between hover:translate-y-[-4px] transition-transform duration-300 cursor-pointer">
+                     <article class="group relative bg-gray-100 dark:bg-brand-gray p-8 min-h-[320px] flex flex-col justify-between hover:translate-y-[-4px] transition-transform duration-300 cursor-pointer">
                         <div>
                              <div class="flex gap-2 mb-4">
                                 <span class="bg-brand-lemon text-brand-black px-2 py-0.5 text-[10px] font-bold uppercase">${post.tag}</span>
@@ -154,12 +128,38 @@ syntax on           " Enable syntax highlighting</code></pre>
                             </h3>
                         </div>
                         <div class="text-sm text-gray-500 dark:text-gray-400 border-t border-black/10 dark:border-white/10 pt-4 mt-8">
-                            ${formatDate(post.date)} • ${post.category}
+                            ${formatDate(post.date)} • ${post.category || 'Tech'}
                         </div>
                         <a href="${post.link}" class="absolute inset-0 z-10" aria-label="Read article"></a>
                     </article>
                 `;
             }
+        }).join('');
+
+        // Render Featured Logs (List)
+        list.innerHTML = featuredLogs.map(post => {
+            // Determine tag color based on tag name or default
+            let tagColor = "bg-gray-200 dark:bg-gray-700 text-black dark:text-white";
+            if (post.tag === 'Machine Learning') tagColor = "bg-brand-cyan text-brand-black";
+            if (post.tag === 'Front End') tagColor = "bg-brand-salmon text-brand-black";
+
+            return `
+                <div class="swiss-border-b py-6 flex flex-col md:flex-row md:items-center justify-between group cursor-pointer hover:bg-gray-50 dark:hover:bg-white/5 transition-colors relative">
+                    <div class="max-w-xl">
+                        <h3 class="text-2xl font-bold mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300">
+                            ${post.title}
+                        </h3>
+                        <div class="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+                            <span class="${tagColor} px-1.5 py-0.5 text-[10px] font-bold uppercase">${post.tag}</span>
+                            <span>${formatDate(post.date)}</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 md:mt-0 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0">
+                        <span class="text-2xl">&rarr;</span>
+                    </div>
+                    <a href="${post.link}" class="absolute inset-0 z-10" aria-label="Read article"></a>
+                </div>
+            `;
         }).join('');
     }
 
@@ -219,15 +219,23 @@ syntax on           " Enable syntax highlighting</code></pre>
 
         if (post) {
             // Process Content for TOC
-            let content = post.content;
+            let content = Array.isArray(post.content) ? post.content.join('') : post.content;
             const headings = [];
             let index = 0;
 
             // Regex to find h2 and h3, add IDs, and collect for TOC
-            content = content.replace(/<(h[23])>(.*?)<\/\1>/g, (match, tag, text) => {
+            content = content.replace(/<(h[23])(?: [^>]*)?>(.*?)<\/\1>/g, (match, tag, text) => {
                 const id = `heading-${index++}`;
-                headings.push({ id, text, level: tag });
-                return `<${tag} id="${id}">${text}</${tag}>`;
+                // Strip HTML tags from the text for the TOC link
+                const plainText = text.replace(/<[^>]*>/g, '');
+                headings.push({ id, text: plainText, level: tag });
+                // Reconstruct the tag with the new ID, preserving original attributes is hard with simple replace, 
+                // so we'll just inject the ID. A better approach is to use DOMParser but for now:
+                // Let's just add the ID to the existing tag.
+                // Actually, the previous replacement was completely replacing the tag. 
+                // Let's try to preserve attributes if possible, or just re-add the ID.
+                // The simplest fix for now is to just add the ID to the tag.
+                return match.replace(new RegExp(`^<${tag}`), `<${tag} id="${id}"`);
             });
 
             // Populate Content
@@ -241,7 +249,7 @@ syntax on           " Enable syntax highlighting</code></pre>
             if (tocContainer) {
                 if (headings.length > 0) {
                     tocContainer.innerHTML = headings.map(h => `
-                        <a href="#${h.id}" id="link-${h.id}" class="toc-link block text-gray-500 dark:text-gray-500 hover:text-black dark:hover:text-white transition-colors ${h.level === 'h3' ? 'pl-4' : ''} py-1">
+                        <a href="#${h.id}" id="link-${h.id}" class="toc-link block text-gray-500 dark:text-gray-500 hover:text-black dark:hover:text-white transition-all duration-200 ${h.level === 'h3' ? 'pl-4 text-xs' : 'text-sm'} py-1 border-l-2 border-transparent pl-3 hover:border-gray-300">
                             ${h.text}
                         </a>
                     `).join('');
@@ -250,7 +258,7 @@ syntax on           " Enable syntax highlighting</code></pre>
                     // Scroll Spy / Intersection Observer
                     const observerOptions = {
                         root: null,
-                        rootMargin: '-100px 0px -60% 0px', // Adjust active zone
+                        rootMargin: '-10% 0px -70% 0px', // More precise active zone
                         threshold: 0
                     };
 
@@ -259,15 +267,15 @@ syntax on           " Enable syntax highlighting</code></pre>
                             if (entry.isIntersecting) {
                                 // Remove active class from all links
                                 document.querySelectorAll('.toc-link').forEach(link => {
-                                    link.classList.remove('text-black', 'dark:text-white', 'font-bold');
-                                    link.classList.add('text-gray-500', 'dark:text-gray-500');
+                                    link.classList.remove('text-brand-salmon', 'font-bold', 'border-brand-salmon');
+                                    link.classList.add('text-gray-500', 'dark:text-gray-500', 'border-transparent');
                                 });
 
                                 // Add active class to current link
                                 const activeLink = document.getElementById(`link-${entry.target.id}`);
                                 if (activeLink) {
-                                    activeLink.classList.remove('text-gray-500', 'dark:text-gray-500');
-                                    activeLink.classList.add('text-black', 'dark:text-white', 'font-bold');
+                                    activeLink.classList.remove('text-gray-500', 'dark:text-gray-500', 'border-transparent');
+                                    activeLink.classList.add('text-brand-salmon', 'font-bold', 'border-brand-salmon');
                                 }
                             }
                         });
@@ -295,6 +303,7 @@ syntax on           " Enable syntax highlighting</code></pre>
 
             // Show Article Wrapper (Grid)
             document.getElementById('article-wrapper').classList.remove('hidden');
+            document.getElementById('article-not-found').classList.add('hidden');
             document.title = `${post.title} - GlitchyKernel`;
         } else {
             // Show Not Found
@@ -303,9 +312,7 @@ syntax on           " Enable syntax highlighting</code></pre>
     }
 
     // Initial Render
-    renderFeatured();
-    renderUpdates();
-    renderArticlePage();
+    // Data loading triggers rendering
 
     // Modal Logic
     const overlay = document.getElementById('modal-overlay');
@@ -421,4 +428,6 @@ syntax on           " Enable syntax highlighting</code></pre>
             openPostModal(post.id);
         }
     }
+
+
 });
